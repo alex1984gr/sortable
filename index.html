@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="/styles.css" rel="stylesheet">
+    <title>Sortable</title>
+</head>
+
+<body>
+    <h1>Sortable Hero Table</h1>
+
+    <label for="search-input">Search by name</label>
+    <input id="search-input" name="search" type="search">
+
+    <label for="page-size-select">Page size</label>
+    <select id="page-size-select" name="page-size">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All results</option>
+    </select>
+
+    <table id="heroes-table">
+        <thead>
+            <tr>
+                <th scope="col">Icon</th>
+                <th scope="col" data-sort-key="name">Name</th>
+                <th scope="col" data-sort-key="fullName">Full Name</th>
+                <th scope="col" data-sort-key="intelligence">Intelligence</th>
+                <th scope="col" data-sort-key="strength">Strength</th>
+                <th scope="col" data-sort-key="speed">Speed</th>
+                <th scope="col" data-sort-key="durability">Durability</th>
+                <th scope="col" data-sort-key="power">Power</th>
+                <th scope="col" data-sort-key="combat">Combat</th>
+                <th scope="col" data-sort-key="race">Race</th>
+                <th scope="col" data-sort-key="gender">Gender</th>
+                <th scope="col" data-sort-key="height">Height</th>
+                <th scope="col" data-sort-key="weight">Weight</th>
+                <th scope="col" data-sort-key="placeOfBirth">Place Of Birth</th>
+                <th scope="col" data-sort-key="alignment">Alignment</th>
+            </tr>
+        </thead>
+        <tbody id="heroes-table-body"></tbody>
+    </table>
+
+    <nav id="pagination"></nav>
+
+    <script src="/main.js"></script>
+</body>
+
+</html>
