@@ -148,6 +148,26 @@ function resetHeroes() {
     updateDefeatedCounter();
 }
 
+function resetHeroes() {
+    // Reset sort state
+    if (window.currentSort) {
+        window.currentSort.column = null;
+        window.currentSort.direction = null;
+    }
+    
+    // Reset data
+    window.filteredData = [...window.sampleData];
+    window.defeatedHeroesCount = 0;
+    window.currentPage = 1;
+    
+    // Update the display
+    window.updateDisplay();
+    if (window.updateSortButtons) {
+        window.updateSortButtons(); // Clear sort indicators
+    }
+    window.updateDefeatedCounter();
+}
+
 // Make functions globally accessible
 window.handleHeroClick = handleHeroClick;
 window.showModal = showModal;

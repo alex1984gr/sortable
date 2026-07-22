@@ -225,6 +225,75 @@ function changePageSize(size) {
     updateDisplay();
 }
 
+let currentSort = {
+    column: null,
+    direction: null // 'asc' or 'desc'
+};
+
+function toggleSort(column) {
+    // If clicking the same column, toggle direction
+    if (currentSort.column === column) {
+        // Cycle: null → asc → desc → asc → desc ...
+        if (currentSort.direction === null) {
+            currentSort.direction = 'asc';
+        } else if (currentSort.direction === 'asc') {
+            currentSort.direction = 'desc';
+        } else {
+            currentSort.direction = 'asc';
+        }
+    } else {
+        // New column - start with ascending
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+    }
+    
+    // Update the icons
+    updateSortButtons();
+    
+    // TODO: Call your backend sorting function here when ready
+    // backendSort(currentSort.column, currentSort.direction);
+    console.log(`Sorting by: ${currentSort.column}, Direction: ${currentSort.direction}`);
+}
+
+function updateSortButtons() {
+    // Remove all active states from sort buttons
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.classList.remove('asc', 'desc');
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.className = 'fas fa-sort';
+        }
+    });
+    
+    // If there's an active sort, update the corresponding button
+    if (currentSort.column && currentSort.direction) {
+        const activeBtn = document.querySelector(`.sort-btn[data-sort="${currentSort.column}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add(currentSort.direction);
+            const icon = activeBtn.querySelector('i');
+            if (icon) {
+                icon.className = currentSort.direction === 'asc' 
+                    ? 'fas fa-sort-up' 
+                    : 'fas fa-sort-down';
+            }
+        }
+    }
+}
+
+function setupSortButtons() {
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const column = this.dataset.sort;
+            toggleSort(column);
+        });
+    });
+}
+
+// Make functions globally accessible
+window.toggleSort = toggleSort;
+window.updateSortButtons = updateSortButtons;
+window.setupSortButtons = setupSortButtons;
 window.renderTable = renderTable;
 window.renderPagination = renderPagination;
 window.updatePaginationInfo = updatePaginationInfo;

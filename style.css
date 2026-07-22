@@ -301,7 +301,6 @@ th .sort-btn.desc {
     transform: scale(0.97);
 }
 
-/* Victory/Defeat themed headers */
 .modal.victory .modal-header {
     background: #27ae60;
     border-bottom-color: #1e8449;
@@ -338,4 +337,57 @@ th .sort-btn.desc {
 
 #pageSize {
     cursor: pointer;
+}
+
+sort-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.2s;
+    border-radius: 4px;
+}
+
+.sort-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sort-btn.asc {
+    color: #f1c40f;
+}
+
+.sort-btn.desc {
+    color: #f1c40f;
+}
+
+.sort-btn.asc i,
+.sort-btn.desc i {
+    color: #f1c40f;
+}
+
+.powerstat-sort-buttons {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.powerstat-sort-buttons .sort-btn {
+    font-size: 12px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.powerstat-sort-buttons .sort-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.powerstat-sort-buttons .sort-btn.asc,
+.powerstat-sort-buttons .sort-btn.desc {
+    background: rgba(241, 196, 15, 0.2);
 }

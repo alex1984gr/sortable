@@ -12,6 +12,10 @@ function init() {
     
     // Update the display
     window.updateDisplay();
+    
+    // Setup sort buttons
+    window.setupSortButtons();
+    
     console.log('App initialized!');
 
     // Setup reset button
