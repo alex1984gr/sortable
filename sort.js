@@ -1,3 +1,4 @@
+// Global UI state for sorting, filtering, and pagination.
 const state = {
     column: "name",
     direction: "asc",
@@ -6,6 +7,7 @@ const state = {
     search: "",
 };
 
+// Columns that must be compared as numbers rather than text.
 const numericColumns = new Set([
     "intelligence",
     "strength",
@@ -17,6 +19,7 @@ const numericColumns = new Set([
     "weight",
 ]);
 
+// Maps table sort keys to the nested path in each hero object.
 const columnPaths = {
     name: "name",
     fullName: "biography.fullName",
@@ -34,10 +37,12 @@ const columnPaths = {
     alignment: "biography.alignment",
 };
 
+// Safely reads nested values using a dotted path like "biography.fullName".
 function getPathValue(hero, path) {
     return path.split(".").reduce((current, part) => current?.[part], hero);
 }
 
+// Identifies placeholder or empty values so they can be sorted last.
 function isMissingValue(value) {
     if (value == null) return true;
     if (typeof value === "string") {
@@ -47,14 +52,17 @@ function isMissingValue(value) {
     return false;
 }
 
+// Cache references to the main UI elements we will read/update.
 const heroesTableBody = document.querySelector("#heroes-table-body");
 const paginationNav = document.querySelector("#pagination");
 const searchInput = document.querySelector("#search-input");
 const pageSizeSelect = document.querySelector("#page-size-select");
 const sortableHeaders = document.querySelectorAll("th[data-sort-key]");
 
+// In-memory data source after fetch, each hero gets a stable original index.
 let heroes = [];
 
+// Parses values like "108.0 meters" or "90,000 tons" into amount + unit.
 function parseMeasurement(rawText) {
     if (typeof rawText !== "string") return null;
 
@@ -69,6 +77,7 @@ function parseMeasurement(rawText) {
     return { amount, unit };
 }
 
+// Normalizes all height formats to centimeters for numeric sorting.
 function normalizeHeightToCm(heightValue) {
     if (!Array.isArray(heightValue)) return null;
 
@@ -84,6 +93,7 @@ function normalizeHeightToCm(heightValue) {
     return null;
 }
 
+// Normalizes all weight formats to kilograms for numeric sorting.
 function normalizeWeightToKg(weightValue) {
     if (!Array.isArray(weightValue)) return null;
 
@@ -100,6 +110,7 @@ function normalizeWeightToKg(weightValue) {
     return null;
 }
 
+// Returns one consistent comparable value per column (number or normalized text).
 function getComparableValue(hero, columnKey) {
     const path = columnPaths[columnKey];
     const raw = getPathValue(hero, path);
@@ -116,6 +127,8 @@ function getComparableValue(hero, columnKey) {
     return raw;
 }
 
+// Core sort comparator used by Array.sort.
+// Missing values are always pushed to the bottom regardless of direction.
 function compareHeroes(leftHero, rightHero) {
     const key = state.column;
     const directionFactor = state.direction === "desc" ? -1 : 1;
@@ -140,6 +153,7 @@ function compareHeroes(leftHero, rightHero) {
     return result * directionFactor;
 }
 
+// Filters the data by hero name using the current search term.
 function getFilteredHeroes() {
     const term = state.search.trim().toLowerCase();
 
@@ -148,10 +162,12 @@ function getFilteredHeroes() {
     return heroes.filter((hero) => hero.name.toLowerCase().includes(term));
 }
 
+// Produces a sorted copy to avoid mutating the original data array.
 function getSortedHeroes(list) {
     return [...list].sort(compareHeroes);
 }
 
+// Slices sorted data to the active page unless "all" is selected.
 function getPaginatedHeroes(list) {
     if (state.pageSize === "all") return list;
 
@@ -159,6 +175,7 @@ function getPaginatedHeroes(list) {
     return list.slice(startIndex, startIndex + state.pageSize);
 }
 
+// Renders table rows for the current page.
 function renderTable(list) {
     heroesTableBody.innerHTML = list
         .map((hero) => {
@@ -199,6 +216,7 @@ function renderTable(list) {
         .join("");
 }
 
+// Creates page buttons and wires click handlers for page navigation.
 function renderPagination(totalItems) {
     if (state.pageSize === "all") {
         paginationNav.innerHTML = "";
@@ -222,6 +240,7 @@ function renderPagination(totalItems) {
     });
 }
 
+// Main render pipeline: filter -> sort -> paginate -> paint UI.
 function render() {
     const filteredHeroes = getFilteredHeroes();
     const sortedHeroes = getSortedHeroes(filteredHeroes);
@@ -236,6 +255,7 @@ function render() {
     });
 }
 
+// Registers all UI events for search, page size, and column sorting.
 function bindEvents() {
     searchInput.addEventListener("input", () => {
         state.search = searchInput.value;
@@ -267,6 +287,7 @@ function bindEvents() {
     });
 }
 
+// Loads remote data, adds stable row indices, and triggers first render.
 async function loadHeroes() {
     const response = await fetch("https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json");
     const data = await response.json();
@@ -274,5 +295,6 @@ async function loadHeroes() {
     render();
 }
 
+// App bootstrap: hook events first, then fetch and render data.
 bindEvents();
 loadHeroes();
