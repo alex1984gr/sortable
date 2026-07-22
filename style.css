@@ -1,20 +1,25 @@
 body {
-    background: gray;
+    background: antiquewhite;
 }
 
 #title {    
     text-align: center;
-    background: white;
-    color: aqua;
 }
 
 #searchbar {
     align-self: center;
-    width: 200px;
+    width: 400px;
     height: 15px;
     resize: none;
 }
 
+.sortingButton {
+    width: 25px;
+    height: 25px;
+    gap: 10px;
+    background-color: antiquewhite;
+    cursor: pointer;
+}
 
 table {
     width: 100%;
@@ -51,11 +56,286 @@ tbody tr:hover {
     background-color: #f8f9fa;
 }
 
-/* Optional: Add zebra striping for better readability */
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
 tbody tr:nth-child(even):hover {
     background-color: #f8f9fa;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-wrapper table {
+    min-width: 1200px;
+}
+
+th {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+td {
+    padding: 8px 12px;
+    font-size: 13px;
+    text-align: center;
+}
+
+th .sort-btn {
+    font-size: 11px;
+    padding: 1px 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.2s;
+}
+
+th .sort-btn:hover {
+    color: white;
+}
+
+th .sort-btn.asc,
+th .sort-btn.desc {
+    color: #f1c40f;
+}
+
+.powerstat-sort-buttons {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.powerstat-sort-buttons .sort-btn {
+    font-size: 12px;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.powerstat-sort-buttons .sort-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.powerstat-sort-buttons .sort-btn.asc,
+.powerstat-sort-buttons .sort-btn.desc {
+    background: rgba(241, 196, 15, 0.2);
+}
+
+.hero-row {
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.hero-row:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.01);
+}
+
+.hero-row:active {
+    transform: scale(0.99);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    background: #f9f9f9;
+    border-radius: 16px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.modal-close {
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #e74c3c;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+#modalMessage {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.modal-stats {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.stat-value.win {
+    color: #2ecc71;
+}
+
+.stat-value.lose {
+    color: #e74c3c;
+}
+
+.stat-value.victory {
+    color: #2ecc71;
+    font-size: 18px;
+}
+
+.stat-value.defeat {
+    color: #e74c3c;
+    font-size: 18px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    background: antiquewhite;
+}
+
+.modal-btn {
+    padding: 10px 32px;
+    background: #4a90d9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.modal-btn:hover {
+    background: #357abd;
+}
+
+.modal-btn:active {
+    transform: scale(0.97);
+}
+
+/* Victory/Defeat themed headers */
+.modal.victory .modal-header {
+    background: #27ae60;
+    border-bottom-color: #1e8449;
+}
+
+.modal.victory .modal-header h2 {
+    color: white;
+}
+
+.modal.defeat .modal-header {
+    background: #e74c3c;
+    border-bottom-color: #c0392b;
+}
+
+.modal.defeat .modal-header h2 {
+    color: white;
+}
+
+.modal.victory .modal-close {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.modal.victory .modal-close:hover {
+    color: white;
+}
+
+.modal.defeat .modal-close {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.modal.defeat .modal-close:hover {
+    color: white;
+}
+
+#pageSize {
+    cursor: pointer;
 }

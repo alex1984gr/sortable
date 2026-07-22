@@ -8,13 +8,32 @@
 </head>
 
 <body>
-    <h1 id="title">This will be the villain's hideout!</h1>
+    <!-- Modal -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Battle Result</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalMessage"></div>
+                <div id="modalStats" class="modal-stats"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalButton" class="modal-btn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <h1 id="title">This is the villain's hideout!</h1>
 
     <div id="searchbar-container">
-        <textarea placeholder="Search for a hero" id="searchbar"></textarea>
+        <textarea placeholder="Search for a hero, or click on one to battle them!" id="searchbar"></textarea>
+        <div id="defeated-counter">Heroes defeated: 0</div>
+        <button id="reset-hero-button">Reset Heroes</button>
         <div class="page-size-control">
             <label for="pageSize">Results per page:</label>
-            <select id="pageSize" onchange="changePageSize(this.value)">
+            <select id="pageSize" onchange="window.changePageSize(this.value)">
                 <option value="10">10</option>
                 <option value="20" selected>20</option>
                 <option value="50">50</option>
@@ -31,16 +50,66 @@
         <table>
             <thead>
                 <tr>
-                    <th>Icon</th>
-                    <th>Name</th>
-                    <th>Full Name</th>
-                    <th>Powerstats</th>
-                    <th>Race</th>
-                    <th>Gender</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Place of Birth</th>
-                    <th>Alignment</th>
+                    <th>
+                        Icon
+                        <button class="sort-btn" data-sort="icon"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Name
+                        <button class="sort-btn" data-sort="name"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Full Name
+                        <button class="sort-btn" data-sort="fullname"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Intelligence
+                        <button class="sort-btn" data-sort="intelligence"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Strength
+                        <button class="sort-btn" data-sort="strength"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Speed
+                        <button class="sort-btn" data-sort="speed"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Durability
+                        <button class="sort-btn" data-sort="durability"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Power
+                        <button class="sort-btn" data-sort="power"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Combat
+                        <button class="sort-btn" data-sort="combat"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Race
+                        <button class="sort-btn" data-sort="race"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Gender
+                        <button class="sort-btn" data-sort="gender"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Height
+                        <button class="sort-btn" data-sort="height"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Weight
+                        <button class="sort-btn" data-sort="weight"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Place of Birth
+                        <button class="sort-btn" data-sort="placeofbirth"><i class="fas fa-sort"></i></button>
+                    </th>
+                    <th>
+                        Alignment
+                        <button class="sort-btn" data-sort="alignment"><i class="fas fa-sort"></i></button>
+                    </th>
                 </tr>
             </thead>
             <tbody id="heroTableBody">
@@ -55,6 +124,10 @@
     <div class="pagination" id="paginationControls">
     </div>
 
-    <script src="api.js"></script>
+    <!-- Load scripts in correct order -->
+    <script src="cmd/api.js"></script>
+    <script src="cmd/table.js"></script>
+    <script src="cmd/battle.js"></script>
+    <script src="cmd/app.js"></script>
 </body>
 </html>
