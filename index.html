@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="/style.css" rel="stylesheet">
+    <title>From Hero to Zero</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <h1 id="title">This will be the villain's hideout!</h1>
+
+    <div id="searchbar-container">
+        <textarea placeholder="Search for a hero" id="searchbar"></textarea>
+        <div class="page-size-control">
+            <label for="pageSize">Results per page:</label>
+            <select id="pageSize" onchange="changePageSize(this.value)">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="-1">All</option>
+            </select>
+        </div>
+        <div class="pagination-info" id="paginationInfo">
+            Showing <span id="startRange">1</span> - <span id="endRange">20</span> of <span id="totalCount">0</span> heroes
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Full Name</th>
+                    <th>Powerstats</th>
+                    <th>Race</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Place of Birth</th>
+                    <th>Alignment</th>
+                </tr>
+            </thead>
+            <tbody id="heroTableBody">
+                <!-- Data will be rendered here by JavaScript -->
+                <tr>
+                    <td colspan="10" class="loading">Loading heroes...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination" id="paginationControls">
+    </div>
+
+    <script src="api.js"></script>
+</body>
+</html>

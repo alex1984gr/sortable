@@ -15,3 +15,47 @@ body {
     resize: none;
 }
 
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border: 1px solid #ddd; /* Outer border */
+}
+
+thead th {
+    background: #2c3e50;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border: 1px solid #1a252f; /* Border between header cells */
+}
+
+tbody td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    border: 1px solid #ddd; /* Border between cells */
+}
+
+tbody tr {
+    border-bottom: 1px solid #e0e0e0; /* Row separator */
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Optional: Add zebra striping for better readability */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even):hover {
+    background-color: #f8f9fa;
+}
