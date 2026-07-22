@@ -1,0 +1,17 @@
+body {
+    background: gray;
+}
+
+#title {    
+    text-align: center;
+    background: white;
+    color: aqua;
+}
+
+#searchbar {
+    align-self: center;
+    width: 200px;
+    height: 15px;
+    resize: none;
+}
+
