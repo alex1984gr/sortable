@@ -18,10 +18,12 @@ async function init() {
             // Re-run the filter/sort/render pipeline.
             window.applyFiltersAndSort();
         });
-    }
-
-    // Update the page size whenever the dropdown changes.
+    }  
     if (pageSizeSelect) {
+        // Set the select to match the default page size (20)
+        pageSizeSelect.value = '20';
+        
+        // Update the page size whenever the dropdown changes.
         pageSizeSelect.addEventListener("change", function () {
             window.changePageSize(this.value);
         });
