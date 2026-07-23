@@ -2,51 +2,140 @@
 <html>
 
 <head>
-    <link href="/styles.css" rel="stylesheet">
-    <title>Sortable</title>
+    <link href="/style.css" rel="stylesheet">
+    <title>From Hero to Zero</title>
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
-    <h1>Sortable Hero Table</h1>
+    <!-- Modal -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Battle Result</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalMessage"></div>
+                <div id="modalStats" class="modal-stats"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalButton" class="modal-btn">Continue</button>
+            </div>
+        </div>
+    </div>
 
-    <label for="search-input">Search by name</label>
-    <input id="search-input" name="search" type="search">
+    <h1 id="title">This is the villain's hideout!</h1>
 
-    <label for="page-size-select">Page size</label>
-    <select id="page-size-select" name="page-size">
-        <option value="10">10</option>
-        <option value="20" selected>20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="all">All results</option>
-    </select>
+    <div id="searchbar-container">
+        <textarea placeholder="Search for a hero, or click on the fight button to battle them!"
+            id="searchbar"></textarea>
+        <div id="defeated-counter">Killstreak: 0</div>
+        <button id="reset-hero-button">Reset Heroes</button>
+        <div class="page-size-control">
+            <label for="pageSize">Results per page:</label>
+            <select id="pageSize">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="-1">All</option>
+            </select>
+        </div>
+        <div class="pagination-info" id="paginationInfo">
+            Showing <span id="startRange">1</span> - <span id="endRange">20</span> of <span id="totalCount">0</span>
+            heroes
+        </div>
+    </div>
 
-    <table id="heroes-table">
-        <thead>
-            <tr>
-                <th scope="col">Icon</th>
-                <th scope="col" data-sort-key="name">Name</th>
-                <th scope="col" data-sort-key="fullName">Full Name</th>
-                <th scope="col" data-sort-key="intelligence">Intelligence</th>
-                <th scope="col" data-sort-key="strength">Strength</th>
-                <th scope="col" data-sort-key="speed">Speed</th>
-                <th scope="col" data-sort-key="durability">Durability</th>
-                <th scope="col" data-sort-key="power">Power</th>
-                <th scope="col" data-sort-key="combat">Combat</th>
-                <th scope="col" data-sort-key="race">Race</th>
-                <th scope="col" data-sort-key="gender">Gender</th>
-                <th scope="col" data-sort-key="height">Height</th>
-                <th scope="col" data-sort-key="weight">Weight</th>
-                <th scope="col" data-sort-key="placeOfBirth">Place Of Birth</th>
-                <th scope="col" data-sort-key="alignment">Alignment</th>
-            </tr>
-        </thead>
-        <tbody id="heroes-table-body"></tbody>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Icon
+                        <button class="sort-btn" data-sort="icon" aria-label="Sort by icon">&#8597;</button>
+                    </th>
+                    <th>
+                        Name
+                        <button class="sort-btn" data-sort="name" aria-label="Sort by name">&#8597;</button>
+                    </th>
+                    <th>
+                        Full Name
+                        <button class="sort-btn" data-sort="fullname" aria-label="Sort by full name">&#8597;</button>
+                    </th>
+                    <th>
+                        Intelligence
+                        <button class="sort-btn" data-sort="intelligence"
+                            aria-label="Sort by intelligence">&#8597;</button>
+                    </th>
+                    <th>
+                        Strength
+                        <button class="sort-btn" data-sort="strength" aria-label="Sort by strength">&#8597;</button>
+                    </th>
+                    <th>
+                        Speed
+                        <button class="sort-btn" data-sort="speed" aria-label="Sort by speed">&#8597;</button>
+                    </th>
+                    <th>
+                        Durability
+                        <button class="sort-btn" data-sort="durability" aria-label="Sort by durability">&#8597;</button>
+                    </th>
+                    <th>
+                        Power
+                        <button class="sort-btn" data-sort="power" aria-label="Sort by power">&#8597;</button>
+                    </th>
+                    <th>
+                        Combat
+                        <button class="sort-btn" data-sort="combat" aria-label="Sort by combat">&#8597;</button>
+                    </th>
+                    <th>
+                        Race
+                        <button class="sort-btn" data-sort="race" aria-label="Sort by race">&#8597;</button>
+                    </th>
+                    <th>
+                        Gender
+                        <button class="sort-btn" data-sort="gender" aria-label="Sort by gender">&#8597;</button>
+                    </th>
+                    <th>
+                        Height
+                        <button class="sort-btn" data-sort="height" aria-label="Sort by height">&#8597;</button>
+                    </th>
+                    <th>
+                        Weight
+                        <button class="sort-btn" data-sort="weight" aria-label="Sort by weight">&#8597;</button>
+                    </th>
+                    <th>
+                        Place of Birth
+                        <button class="sort-btn" data-sort="placeofbirth"
+                            aria-label="Sort by place of birth">&#8597;</button>
+                    </th>
+                    <th>
+                        Alignment
+                        <button class="sort-btn" data-sort="alignment" aria-label="Sort by alignment">&#8597;</button>
+                    </th>
+                    <th>
+                        Fight
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="heroTableBody">
+                <!-- Data will be rendered here by JavaScript -->
+                <tr>
+                    <td colspan="16" class="loading">Loading heroes...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <nav id="pagination"></nav>
+    <div class="pagination" id="paginationControls">
+    </div>
 
-    <script src="/sort.js"></script>
+    <!-- Load scripts in correct order -->
+    <script src="cmd/api.js"></script>
+    <script src="cmd/table.js"></script>
+    <script src="cmd/battle.js"></script>
+    <script src="cmd/app.js"></script>
 </body>
 
 </html>
