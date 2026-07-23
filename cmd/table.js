@@ -243,7 +243,7 @@ function renderTable(data) {
                     type="button"
                     data-name="${hero.name}"
                     data-durability="${hero.powerstats?.durability || 50}"
-                >
+                    data-alignment="${hero.biography?.alignment || 'neutral'}">
                     Fight
                 </button>
             </td>
@@ -253,13 +253,13 @@ function renderTable(data) {
     // Attach click handlers to the dedicated fight buttons only.
     document.querySelectorAll(".fight-btn").forEach((button) => {
         button.addEventListener("click", function (event) {
-            // Prevent the click from bubbling to the row.
             event.stopPropagation();
             const durability = parseInt(this.dataset.durability, 10);
             const name = this.dataset.name;
-            // Delegate to the battle logic if it exists.
+            const alignment = this.dataset.alignment;
             if (window.handleHeroClick) {
-                window.handleHeroClick(name, Number.isFinite(durability) ? durability : 50);
+                window.handleHeroClick(name, durability, alignment
+                );
             }
         });
     });

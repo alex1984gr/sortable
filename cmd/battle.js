@@ -2,51 +2,78 @@
 window.defeatedHeroesCount = 0;
 
 // Opens a battle modal and decides whether the hero is defeated.
-function handleHeroClick(heroName, durability) {
+function handleHeroClick(heroName, durability, alignment) {
     // Generate a random roll for the battle.
-    const randomNumber = Math.floor(Math.random() * 120) + 1;
+    const randomNumber = Math.floor(Math.random() * 180) + 1;
 
-    console.log(`Hero: ${heroName}, Durability: ${durability}, Random: ${randomNumber}`);
+    console.log(`Hero: ${heroName}, Durability: ${durability}, Alignment: ${alignment}, Random: ${randomNumber}`);
+
+    const isBad = alignment && alignment.toLowerCase() === 'bad';
 
     // Messages shown when the player wins.
-    const victoryMessages = [
-        `You defeated ${heroName} with a critical hit!`,
-        `${heroName} is down! You win!`,
-        `${heroName} couldn't withstand your attack!`,
-        `You vanquished ${heroName}!`,
-        `${heroName} has fallen to your might!`,
-        `${heroName} was no match for you!`,
-        `${heroName} has been defeated!`
-    ];
+    const victoryMessages = { 
+        regular: [
+            `You defeated ${heroName} with a critical hit!`,
+            `${heroName} is down! You win!`,
+            `${heroName} couldn't withstand your attack!`,
+            `You vanquished ${heroName}!`,
+            `${heroName} has fallen to your might!`,
+            `${heroName} was no match for you!`,
+            `${heroName} has been defeated!`
+        ],
+        bad: [
+            `Metaksi katergaraiwn, eisai o pio katergaris!`
+        ]
+    };
 
     // Messages shown when the hero survives.
-    const defeatMessages = [
-        `${heroName}'s durability was too high!`,
-        `${heroName} absorbed your attack!`,
-        `You couldn't break through ${heroName}'s defense!`,
-        `${heroName} shrugged off your attack!`,
-        `${heroName} endured your assault!`,
-        `${heroName} is too tough to defeat!`,
-        `${heroName}'s durability is legendary!`
-    ];
-
-    // Pick one random message from each list.
-    const randomVictory = victoryMessages[Math.floor(Math.random() * victoryMessages.length)];
-    const randomDefeat = defeatMessages[Math.floor(Math.random() * defeatMessages.length)];
+    const defeatMessages = {
+        regular: [
+            `${heroName}'s durability was too high!`,
+            `${heroName} absorbed your attack!`,
+            `You couldn't break through ${heroName}'s defense!`,
+            `${heroName} shrugged off your attack!`,
+            `${heroName} endured your assault!`,
+            `${heroName} is too tough to defeat!`,
+            `${heroName}'s durability is legendary!`
+        ],
+        bad: [
+            `Metaksi katergaraiwn, eisai o ligotero katergaris...`
+        ]
+    };
 
     // Decide whether the battle was a win.
     const isVictory = randomNumber > durability;
-    const message = isVictory ? randomVictory : randomDefeat;
+
+    // Pick one random message from the correct list based on alignment and result.
+    const messageArray = isVictory
+        ? (isBad ? victoryMessages.bad : victoryMessages.regular)
+        : (isBad ? defeatMessages.bad : defeatMessages.regular);
+
+    const message = messageArray[Math.floor(Math.random() * messageArray.length)];
     const resultClass = isVictory ? 'victory' : 'defeat';
+
+    // Set the title based on result and alignment
+    const title = isVictory
+        ? (isBad ? 'VILLAIN DEFEATED!' : 'Victory!')
+        : (isBad ? 'Villain Wins!' : 'Defeat!');
 
     // Send the result to the modal renderer.
     showModal({
-        title: `Battle Result`,
+        title: title,
         message: message,
         stats: `
             <div class="stat-row">
+                <span class="stat-label">Hero:</span>
+                <span class="stat-value">${heroName}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Alignment:</span>
+                <span class="stat-value ${isBad ? 'alignment-villain' : 'alignment-hero'}">${alignment || 'Unknown'}</span>
+            </div>
+            <div class="stat-row">
                 <span class="stat-label">Your Roll:</span>
-                <span class="stat-value ${randomNumber > durability ? 'win' : 'lose'}">${randomNumber}</span>
+                <span class="stat-value ${isVictory ? 'win' : 'lose'}">${randomNumber}</span>
             </div>
             <div class="stat-row">
                 <span class="stat-label">${heroName}'s Durability:</span>
@@ -59,7 +86,8 @@ function handleHeroClick(heroName, durability) {
         `,
         resultClass: resultClass,
         heroName: heroName,
-        isVictory: isVictory
+        isVictory: isVictory,
+        isBad: isBad
     });
 }
 

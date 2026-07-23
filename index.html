@@ -27,24 +27,28 @@
 
     <h1 id="title">This is the villain's hideout!</h1>
 
+    
     <div id="searchbar-container">
         <textarea placeholder="Search for a hero, or click on the fight button to battle them!"
-            id="searchbar"></textarea>
-        <div id="defeated-counter">Killstreak: 0</div>
-        <button id="reset-hero-button">Reset Heroes</button>
-        <div class="page-size-control">
-            <label for="pageSize">Results per page:</label>
-            <select id="pageSize">
-                <option value="10">10</option>
-                <option value="20" selected>20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-                <option value="-1">All</option>
-            </select>
-        </div>
-        <div class="pagination-info" id="paginationInfo">
-            Showing <span id="startRange">1</span> - <span id="endRange">20</span> of <span id="totalCount">0</span>
-            heroes
+        id="searchbar"></textarea>
+            <div class="pagination-info" id="paginationInfo">
+                Showing <span id="startRange">1</span> - <span id="endRange">20</span> of <span id="totalCount">0</span>
+                heroes
+            </div>
+            <div class="page-size-control">
+                <label for="pageSize">Results per page:</label>
+                <select id="pageSize">
+                    <option value="10">10</option>
+                    <option value="20" selected>20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="-1">All</option>
+                </select>
+            </div>
+        
+        <div id="killsteak">
+            <button id="reset-hero-button">Reset Heroes</button>
+            <div id="defeated-counter">Killstreak: 0</div>  
         </div>
     </div>
 
