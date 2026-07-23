@@ -25,7 +25,6 @@ const numericSortColumns = new Set([
 
 // Maps table sort keys to the nested fields in the hero objects.
 const sortColumnPaths = {
-    icon: "images.xs",
     name: "name",
     fullname: "biography.fullName",
     intelligence: "powerstats.intelligence",
