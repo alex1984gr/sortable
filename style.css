@@ -171,7 +171,7 @@ body {
 
 .table-wrapper table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
     font-size: 14px;
     border: 1px solid #2e343b;
@@ -179,22 +179,70 @@ body {
     min-width: 1200px;
 }
 
-.table-wrapper table th:nth-child(1) { width: 100px; }   
-.table-wrapper table th:nth-child(2) { width: 120px; }  
-.table-wrapper table th:nth-child(3) { width: 100px; }  
-.table-wrapper table th:nth-child(4) { width: 100px; }   
-.table-wrapper table th:nth-child(5) { width: 100px; }   
-.table-wrapper table th:nth-child(6) { width: 100px; }   
-.table-wrapper table th:nth-child(7) { width: 100px; }   
-.table-wrapper table th:nth-child(8) { width: 100px; }   
-.table-wrapper table th:nth-child(9) { width: 100px; }   
-.table-wrapper table th:nth-child(10) { width: 100px; }
-.table-wrapper table th:nth-child(11) { width: 100px; } 
-.table-wrapper table th:nth-child(12) { width: 90px; }  
-.table-wrapper table th:nth-child(13) { width: 90px; }  
-.table-wrapper table th:nth-child(14) { width: 150px; } 
-.table-wrapper table th:nth-child(15) { width: 100px; } 
-.table-wrapper table th:nth-child(16) { width: 100px; } 
+.table-wrapper table th:nth-child(1) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(2) {
+    width: 120px;
+}
+
+.table-wrapper table th:nth-child(3) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(4) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(5) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(6) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(7) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(8) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(9) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(10) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(11) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(12) {
+    width: 90px;
+}
+
+.table-wrapper table th:nth-child(13) {
+    width: 90px;
+}
+
+.table-wrapper table th:nth-child(14) {
+    width: 150px;
+}
+
+.table-wrapper table th:nth-child(15) {
+    width: 100px;
+}
+
+.table-wrapper table th:nth-child(16) {
+    width: 100px;
+}
+
 thead th {
     background: #1d2328;
     color: #f5f7fa;
@@ -418,6 +466,7 @@ tbody tr:nth-child(even):hover {
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -439,6 +488,7 @@ tbody tr:nth-child(even):hover {
         transform: translateY(30px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -692,51 +742,52 @@ tbody tr:nth-child(even):hover {
         gap: 10px;
         padding: 12px 14px;
     }
-    
+
     .left-controls {
         flex-wrap: wrap;
         gap: 10px;
         grid-row: 2;
     }
-    
+
     #killsteak {
         justify-self: start;
         grid-column: 1;
         grid-row: 3;
         flex-wrap: wrap;
     }
-    
+
     .pagination-info {
         white-space: normal;
     }
-    
+
     #reset-hero-button {
         width: auto;
         min-width: auto;
         padding: 8px 16px;
     }
-    
+
     .table-wrapper {
         padding: 0 10px;
     }
-    
+
     table {
         font-size: 12px;
     }
-    
-    thead th, tbody td {
+
+    thead th,
+    tbody td {
         padding: 8px 10px;
     }
-    
+
     .powerstat-badge {
         font-size: 10px;
     }
-    
+
     .hero-icon {
         width: 48px;
         height: 48px;
     }
-    
+
     .sort-btn {
         font-size: 12px;
         min-width: 24px;
